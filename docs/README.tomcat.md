@@ -6,16 +6,18 @@
 $ make vars FILTER=TOMCAT_
 
 ------------------------------------------------------------
->>>>          Current Envrionment Variables             <<<<
+>>>>          Current Environment Variables             <<<<
 ------------------------------------------------------------
 
-TOMCAT_HOME = /usr/share/tomcat9
+TOMCAT_DEFAULT_PORT = 8083
+TOMCAT_DEFAULT_SERVER_XML = server.xml
+TOMCAT_HOME = /opt/tomcat9
 TOMCAT_INSTALL_LOCATION = /opt/tomcat9
 TOMCAT_MAJOR_VER = 9
-TOMCAT_MINOR_VER = 0.37
-TOMCAT_SRC = apache-tomcat-9.0.37.tar.gz
-TOMCAT_URL = "https://downloads.apache.org/tomcat/tomcat-9/v9.0.37/bin/apache-tomcat-9.0.37.tar.gz"
-TOMCAT_VER = 9.0.37
+TOMCAT_MINOR_VER = 0.58
+TOMCAT_SRC = apache-tomcat-9.0.58.tar.gz
+TOMCAT_URL = "https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.58/bin/apache-tomcat-9.0.58.tar.gz"
+TOMCAT_VER = 9.0.58
 ```
 
 ## Setup

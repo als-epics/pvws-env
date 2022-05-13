@@ -2,8 +2,12 @@
 #
 TOMCAT_INSTALL_LOCATION:=/opt/tomcat9
 #
+# Carefully check the security site, if the level is Important, update a fixed version of Tomcat
+#
+# https://tomcat.apache.org/security-9.html
+# https://tomcat.apache.org/tomcat-9.0-doc/index.html
 TOMCAT_MAJOR_VER:=9
-TOMCAT_MINOR_VER:=0.54
+TOMCAT_MINOR_VER:=0.58
 TOMCAT_VER:=$(TOMCAT_MAJOR_VER).$(TOMCAT_MINOR_VER)
 TOMCAT_SRC:=apache-tomcat-$(TOMCAT_VER).tar.gz
 #

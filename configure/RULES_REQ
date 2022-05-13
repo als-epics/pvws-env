@@ -1,26 +1,53 @@
+# it may not be required for local JAVA and MAVEN environment
+#
 
-# .PHONY: es_install es_start es_status es_mapping es_mapping_clean es_all
-
-# ## Build Source for Debian 10
-# es_install:
-# 	$(QUIET) wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.1.deb
-# 	$(QUIET)$(SUDO) dpkg -i elasticsearch-6.3.1.deb
-# 	$(QUIET)$(SUDO) systemctl enable elasticsearch
-
-# es_start:
-# 	$(QUIET)$(SUDO) systemctl start elasticsearch
-
-# es_status:	
-# 	$(QUIET)systemctl status -l elasticsearch | cat
-
-# ## Create the ES indexes and set up their mapping
-# es_mapping:
-# 	$(QUIET)bash $(SITE_TEMPLATE_PATH)/mapping_definitions.bash
-
-# ## Clean all ES indexes and their mapping
-# es_mapping_clean:
-# 	$(QUIET)bash $(SITE_TEMPLATE_PATH)/clean_mapping_definitions.bash
+req_RULES_NAMES:=pkgs jdk maven localjava.all
+req_install_RULES:=$(filter-out %java.all %.pkgs, $(addprefix install., $(req_RULES_NAMES)) )
+req_conf_RULES:=$(filter-out %java.all %.pkgs, $(addprefix conf., $(req_RULES_NAMES)) )
+clean_RULES_NAMES:=localjdk localmaven
+clean_conf_RULES:=$(addprefix clean., $(clean_RULES_NAMES))
 
 
-# es_all: es_install es_start es_start es_mapping
-	
+install.pkgs:
+	$(QUIET)echo "Please run bash scripts/required_pkgs.sh"
+
+install.localjava.all: $(req_install_RULES)
+
+conf.localjava.all: $(req_conf_RULES)
+
+.PHONY: clean.localjava.all
+
+clean.localjava.all: $(clean_conf_RULES)
+
+## JDK
+install.jdk: install_java_pkgs_local.bash | $(JAVA_LOCAL)
+	$(QUIET)echo "OpenJDK will be in $(JAVA_LOCAL)/openjdk$(JAVA_LOCAL_VER)"
+	$(QUIET)bash $< "jdk$(JAVA_LOCAL_VER)" "$(JAVA_LOCAL)"
+
+conf.jdk: 
+	$(QUIET)echo ">>> Generating $(TOP)/configure/CONFIG_COMMON_JDK.local"
+	$(QUIET)-rm -f $(TOP)/configure/CONFIG_COMMON_JDK.local
+	$(QUIET)echo "JAVA_HOME:=$(JAVA_LOCAL)/openjdk$(JAVA_LOCAL_VER)"      > $(TOP)/configure/CONFIG_COMMON_JDK.local
+	$(QUIET)echo "JAVA_PATH:=$(JAVA_LOCAL)/openjdk$(JAVA_LOCAL_VER)/bin" >> $(TOP)/configure/CONFIG_COMMON_JDK.local
+	$(QUIET)cat -b $(TOP)/configure/CONFIG_COMMON_JDK.local
+
+clean.localjdk:
+	$(QUIET)rm -f $(TOP)/configure/CONFIG_COMMON_JDK.local
+
+install.maven: install_java_pkgs_local.bash  | $(JAVA_LOCAL)
+	$(QUIET)echo "MAVEN be in $(JAVA_LOCAL)/maven"
+	$(QUIET)bash $< "maven" "$(JAVA_LOCAL)"
+
+conf.maven: 
+	$(QUIET)echo ">>> Generating CONFIG_COMMON_MAVEN.local"
+	$(QUIET)-rm -f $(TOP)/configure/CONFIG_COMMON_MAVEN.local
+	$(QUIET)echo "MAVEN_HOME:=$(JAVA_LOCAL)/maven"      > $(TOP)/configure/CONFIG_COMMON_MAVEN.local
+	$(QUIET)echo "MAVEN_PATH:=$(JAVA_LOCAL)/maven/bin" >> $(TOP)/configure/CONFIG_COMMON_MAVEN.local
+	$(QUIET)cat -b $(TOP)/configure/CONFIG_COMMON_MAVEN.local
+
+clean.localmaven:
+	$(QUIET)rm -f $(TOP)/configure/CONFIG_COMMON_MAVEN.local
+
+$(JAVA_LOCAL):
+	@mkdir -p $@
+

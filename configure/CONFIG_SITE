@@ -1,15 +1,13 @@
 
-### channelfinder installation location
+### $APPNAME installation location
 INSTALL_LOCATION=/opt/${APPNAME}
 
+WARS_TARGET:=$(TOP)/wars
 
-ANT_OPTS:=-Dant.home=$(ANT_HOME)
-ANT_OPTS+=-Dant.library.dir=$(ANT_HOME)/lib
-#ANT_OPTS+=--execdebug
-#ANT_OPTS+=-Dver=$(ARCHAPPL_VERSION)
-#ANT_OPTS+=-Dwardest=$(ARCHAPPL_WARS_TARGET_PATH)
-#ANT_OPTS+=-Dtomcathome=$(TOMCAT_HOME)
-#ANT_OPTS+=-Darchapplsite=$(ARCHAPPL_SITEID)
+APPNAME_TOP:=$(INSTALL_LOCATION)
+APPNAME_SITDID:=als
+APPNAME_VERSION:=$(SRC_VERSION)-$(APPNAME_SITEID)
+APPNAME_WARS_TARGET_PATH:=$(TOP)/wars
 
 MAVEN_OPTS:=
 
@@ -26,11 +24,25 @@ JAVA_MAXMETASPACE="256m"
 ## https://www.openssl.org/blog/blog/2017/08/12/random/
 JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
 ##
-#CATALINA_OPTS="-XX:MaxMetaspaceSize=$(JAVA_MAXMETASPACE)"
-#CATALINA_OPTS+="-Xms$(JAVA_HEAPSIZE)"
-#CATALINA_OPTS+="-Xmx$(JAVA_HEAPSIZE)"
-#CATALINA_OPTS+="-XX:+UseG1GC"
-#CATALINA_OPTS+="-ea"
+CATALINA_OPTS="-XX:MaxMetaspaceSize=$(JAVA_MAXMETASPACE)"
+CATALINA_OPTS+="-Xms$(JAVA_HEAPSIZE)"
+CATALINA_OPTS+="-Xmx$(JAVA_HEAPSIZE)"
+CATALINA_OPTS+="-XX:+UseG1GC"
+CATALINA_OPTS+="-ea"
+
+USERID:=tomcat
+GROUPID:=$(USERID)
+
+## log4j_properties located in $(TOMCAT_HOME)/lib
+APPNAME_LOG4JPROPERTIES:=log4j.properties
+APPNAME_CONF:=${APPNAME}.conf
+### $(INSTALL_LOCATION)/*/conf
+APPNAME_CONTEXT_XML:=context.xml
+APPNAME_TOMCAT_STARTUP:=startup.sh
+APPNAME_TOMCAT_SHUTDOWN:=shutdown.sh
+APPNAME_MAIN_SCRIPT:=${APPNAME}.bash
+
+
 
 SYSTEMD_PATH:=/etc/systemd/system
 SYSTEMD_FILENAME:=${APPNAME}.service

@@ -45,10 +45,11 @@ distclean:
 	$(call distclean, $(SRC_PATH))
 
 deinit: distclean
-## Clean Source
 
+### maven is used in other configuration
 .PHONY: info.mvn build.mvn conf.mvn mkdir.wars
 
+## JAVA/Maven Env
 info.mvn:
 	$(QUIET)echo "-------------------------------------------------------------"
 	$(QUIET)echo ">>> MAVEN  information"
@@ -61,25 +62,32 @@ info.mvn:
 	$(QUIET)echo "-------------------------------------------------------------"
 
 ## Build Source
-build.mvn: info.mvn | mkdir.wars
-    echo "mvn $(MVN_OPTS) -f $(SRC_PATH) clean install -Dmaven.test.skip=true"
-	$(QUIET) JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(MVN_OPTS) -f $(SRC_PATH) clean install -Dmaven.test.skip=true
 
-clean.mvn: info.mvm
+clean.mvn: info.mvn
+	$(QUIET) echo "JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(MVN_OPTS) -f $(SRC_PATH) clean -Dmaven.test.skip=true"
 	$(QUIET) JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(MVN_OPTS) -f $(SRC_PATH) clean -Dmaven.test.skip=true
+
+build.mvn: info.mvn | mkdir.wars
+	$(QUIET) JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(MVN_OPTS) -f $(SRC_PATH) clean package -Dmaven.test.skip=true
 
 ## Copy the site specific files into sources
 conf.mvn:
-	$(QUIET)sed -e "s:_KEYSTORE_:$(KEYSTORE_FILENAME):g" \
-		    -e "s:_CFLDIF_:$(CFLDIF_FILENAME):g" \
-		    < $(SITE_TEMPLATE_PATH)/application.properties.in \
-		    > $(SITE_TEMPLATE_PATH)/application.properties
-	$(QUIET)cp $(SITE_TEMPLATE_PATH)/application.properties $(SITE_SPECIFIC_FILES_PATH)/
-mkdir.wars:
-	@mkdir -p $(ARCHAPPL_WARS_TARGET_PATH)
+#	$(QUIET)sed -e "s:_KEYSTORE_:$(KEYSTORE_FILENAME):g" \
+#		    -e "s:_CFLDIF_:$(CFLDIF_FILENAME):g" \
+#		    < $(SITE_TEMPLATE_PATH)/application.properties.in \
+#		    > $(SITE_TEMPLATE_PATH)/application.properties
+#	$(QUIET)cp $(SITE_TEMPLATE_PATH)/application.properties $(SITE_SPECIFIC_FILES_PATH)/
 
-.PHONY: conf build
+
+mkdir.wars:
+	@mkdir -p $(APPNAME_WARS_TARGET_PATH)
+
+.PHONY: conf build clean
 
 build: conf build.mvn
 
 conf: conf.mvn
+
+clean: clean.mvn
+
+

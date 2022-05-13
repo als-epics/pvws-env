@@ -5,11 +5,15 @@ INSTALL_LOCATION=/opt/${APPNAME}
 WARS_TARGET:=$(TOP)/wars
 
 APPNAME_TOP:=$(INSTALL_LOCATION)
-APPNAME_SITDID:=als
+APPNAME_SITEID:=als
 APPNAME_VERSION:=$(SRC_VERSION)-$(APPNAME_SITEID)
 APPNAME_WARS_TARGET_PATH:=$(TOP)/wars
+APPFULLNAME:="EPICS PV WebSocket"
 
-MAVEN_OPTS:=
+
+MAVEN_OPTS:="-Dversion=$(APPNAME_VERSION)"
+MAVEN_OPTS+="-Dfile=$(APPNAME_WARS_TARGET_PATH)"
+#MAVEN_OPTS+="-Dtomcathome=/opt/tomcat9"
 
 # export JAVA_OPTS="-XX:MaxPermSize=128M -XX:+UseG1GC -Xmx4G -Xms4G -ea"
 #
@@ -21,9 +25,9 @@ MAVEN_OPTS:=
 JAVA_HEAPSIZE="512m"
 JAVA_MAXMETASPACE="256m"
 ## https://stackoverflow.com/questions/58991966/what-java-security-egd-option-is-for
-## https://www.openssl.org/blog/blog/2017/08/12/random/
+# https://www.openssl.org/blog/blog/2017/08/12/random/
 JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"
-##
+#
 CATALINA_OPTS="-XX:MaxMetaspaceSize=$(JAVA_MAXMETASPACE)"
 CATALINA_OPTS+="-Xms$(JAVA_HEAPSIZE)"
 CATALINA_OPTS+="-Xmx$(JAVA_HEAPSIZE)"
@@ -33,10 +37,10 @@ CATALINA_OPTS+="-ea"
 USERID:=tomcat
 GROUPID:=$(USERID)
 
-## log4j_properties located in $(TOMCAT_HOME)/lib
+# log4j_properties located in $(TOMCAT_HOME)/lib
 APPNAME_LOG4JPROPERTIES:=log4j.properties
 APPNAME_CONF:=${APPNAME}.conf
-### $(INSTALL_LOCATION)/*/conf
+# $(INSTALL_LOCATION)/*/conf
 APPNAME_CONTEXT_XML:=context.xml
 APPNAME_TOMCAT_STARTUP:=startup.sh
 APPNAME_TOMCAT_SHUTDOWN:=shutdown.sh

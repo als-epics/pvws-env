@@ -6,9 +6,6 @@ TOMCAT_HOME:=/usr/share/tomcat9
 JAVA_PATH:=$(JAVA_HOME)/bin
 MAVEN_PATH:=$(MAVEN_HOME)/bin
 
-JAVA_LOCAL:=$(TOP)/JAVA
-JAVA_LOCAL_VER:=12
-
 
 # These allow developers to override the variable
 -include $(TOP)/../CONFIG_COMMON.local

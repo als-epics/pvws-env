@@ -5,7 +5,7 @@ Configuration Environment for [EPICS PV WebSocket](https://github.com/ornl-epics
 ## Please
 
 One should understand that 
-- This reposiotry is a **simple tool** to help users to setup, maintain, and upgrade EPICS PV WebSocket easily.
+- This repository is a **simple tool** to help users to setup, maintain, and upgrade EPICS PV WebSocket easily.
 
 ## Pre-requirement packages
 
@@ -13,10 +13,46 @@ One should understand that
 git make sudo which
 ```
 
-## Debian 10/11 (EOL: 2024-06-01/2026-08-15)
 
-### Preparation
+## JAVA and MAVEN
+
+Please check two rules `conf.jdk.macos` and `conf.mvn.macos` in `configure/RULES_REQ' for preparation of your own JAVA and MAVEN environment.
+Note that `JAVA_HOME`,`JAVA_PATH`, `MAVEN_HOME`, and `MAVEN_PATH` must be defined without any variables.
+
+
+## EPICS Environment Variables
+
+The default EPICS Environment Variables are defined as
 
 ```bash
-make init
+% make vars FILTER=EPICS_
+
+------------------------------------------------------------
+>>>>          Current Envrionment Variables             <<<<
+------------------------------------------------------------
+
+EPICS_CA_ADDR_LIST = localhost
+EPICS_CA_AUTO_ADDR_LIST = YES
+EPICS_CA_MAX_ARRAY_BYTES = 16384
+EPICS_PVA_ADDR_LIST =
+EPICS_PVA_AUTO_ADDR_LIST = YES
+EPICS_PVA_BROADCAST_PORT = 5076
+EPICS_PVA_NAME_SERVERS =
+EPICS_CA_ADDR_LIST = localhost
+EPICS_CA_AUTO_ADDR_LIST = YES
+EPICS_CA_MAX_ARRAY_BYTES = 16384
+make sql.show
 ```
+
+## Build, install, and Service
+
+```
+make init
+make build
+#make install (WIP)
+#make exist (WIP)
+#
+#make sd_start (WIP)
+#make sd_status (WIP)
+```
+

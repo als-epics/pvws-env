@@ -9,15 +9,45 @@ One should understand that
 
 ## Pre-requirement packages
 
+### Debian 11
+
 ```bash
-git make sudo which
+git make sudo which curl wget libjson-pp-perl 
 ```
 
 
-## JAVA and MAVEN
+### JAVA and MAVEN
+
+Default JAVA and MAVEN configuration are for Debian 11. Please set JAVA and MAVEN according to your system.
+
+```
+```
 
 Please check several rules in `configure/RULES_REQ` for preparation of your own JAVA and MAVEN environment.
 Note that `JAVA_HOME`,`JAVA_PATH`, `MAVEN_HOME`, and `MAVEN_PATH` must be defined without any variables.
+
+### Tomcat9
+
+We don't need the Tomcat service running, but does the package itself. The default Tomcat9 is for the Debian 11.
+Please check several Makefile rules for Tomcat9 such as `make tomcat.......`
+
+```bash
+$ make vars FILTER=TOMCAT_
+
+------------------------------------------------------------
+>>>>          Current Environment Variables             <<<<
+------------------------------------------------------------
+
+TOMCAT_DEFAULT_PORT = 8083
+TOMCAT_DEFAULT_SERVER_XML = server.xml
+TOMCAT_HOME = /usr/share/tomcat9
+TOMCAT_INSTALL_LOCATION = /opt/tomcat9
+TOMCAT_MAJOR_VER = 9
+TOMCAT_MINOR_VER = 0.58
+TOMCAT_SRC = apache-tomcat-9.0.58.tar.gz
+TOMCAT_URL = "https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.58/bin/apache-tomcat-9.0.58.tar.gz"
+TOMCAT_VER = 9.0.58
+```
 
 
 ## EPICS Environment Variables

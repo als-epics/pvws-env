@@ -49,3 +49,11 @@ auto_positions.sav*
 env-template/
 *.swp
 *tar.gz
+*.services
+*services
+site-template/systemd/*.services
+*.service
+pvws.bash
+pvws.conf
+override.conf
+log4j.properties

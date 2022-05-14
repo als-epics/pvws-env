@@ -25,6 +25,7 @@ TOMCAT_VER = 9.0.58
 ```bash
 make tomcat.get
 make tomcat.install
+make tomcat.exist
 ```
 
 ### Tomcat service
@@ -43,6 +44,7 @@ make tomcat.sd_stop
 make tomcat.sd_disable
 make tomcat.sd_enable
 make tomcat.sd_clean
+make 
 ```
 
 ## Tomcat Generic Service

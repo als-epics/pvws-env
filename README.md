@@ -49,8 +49,23 @@ make sql.show
 ```
 make init
 make build
-#make install (WIP)
-#make exist (WIP)
+make install
+make exist
+```
+
+```
+/opt/pvwebsocket/pvws.bash startup
+/opt/pvwebsocket/pvws.bash shutdown
+/opt/pvwebsocket/pvws.bash info
+```
+
+```
+https://localhost:15577/pvws/
+```
+
+## SystemD (WIP)
+
+```
 #
 #make sd_start (WIP)
 #make sd_status (WIP)

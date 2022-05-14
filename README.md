@@ -20,9 +20,6 @@ git make sudo which curl wget libjson-pp-perl
 
 Default JAVA and MAVEN configuration are for Debian 11. Please set JAVA and MAVEN according to your system.
 
-```
-```
-
 Please check several rules in `configure/RULES_REQ` for preparation of your own JAVA and MAVEN environment.
 Note that `JAVA_HOME`,`JAVA_PATH`, `MAVEN_HOME`, and `MAVEN_PATH` must be defined without any variables.
 
@@ -84,6 +81,33 @@ make exist
 make exist LEVEL=3
 ```
 
+## SystemD
+
+```
+$ make sd_enable
+$ make sd_start
+$ make sd_status
+$ systemctl status  pvws
+● pvws.service - EPICS PV WebSocket for ALS
+     Loaded: loaded (/opt/pvwebsocket/pvws.bash; enabled; vendor preset: enabled)
+     Active: active (running) since Fri 2022-05-13 21:25:51 PDT; 3min 26s ago
+       Docs: https://github.com/ornl-epics/pvws
+    Process: 10258 ExecStart=/bin/bash -c /opt/pvwebsocket/pvws.bash startup (code=exited, status=0/SUCCESS)
+   Main PID: 10270 (java)
+      Tasks: 41 (limit: 9341)
+     Memory: 348.1M
+        CPU: 15.227s
+     CGroup: /system.slice/pvws.service
+
+```
+
+##
+* https://localhost:15577/pvws/
+
+## Scripts
+
+Note that `USER` should be in `USERID` or `GROUPID`. Typically, in Linux, `USER` should be in the tomcat group. One can use `sudo` permission to run the following script. However, please keep in mind that systemd is executed by tomcat account. If one starts it with `sudo` permission at first, systemd cannot do. In this case, `chown -R tomcat:tomcat /opt/pvwebsocket` is required to recover this issue.
+
 ```
 /opt/pvwebsocket/pvws.bash startup
 /opt/pvwebsocket/pvws.bash shutdown
@@ -91,15 +115,11 @@ make exist LEVEL=3
 /opt/pvwebsocket/pvws.bash info
 ```
 
+It is convenient to add `USER` to tomcat group by `sudo usermod -aG tomcat $USER`.
 
-* https://localhost:15577/pvws/
+## Screenshot
 
 
-## SystemD (WIP)
-
-```
-#
-#make sd_start (WIP)
-#make sd_status (WIP)
-```
-
+|![AAH](docs/images/pvws.png)|
+| :---: |
+|**Figure 1** Firefox PV WebSocker Home Page Screenshot.|

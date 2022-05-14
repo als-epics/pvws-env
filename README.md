@@ -16,7 +16,7 @@ git make sudo which
 
 ## JAVA and MAVEN
 
-Please check two rules `conf.jdk.macos` and `conf.mvn.macos` in `configure/RULES_REQ' for preparation of your own JAVA and MAVEN environment.
+Please check several rules in `configure/RULES_REQ' for preparation of your own JAVA and MAVEN environment.
 Note that `JAVA_HOME`,`JAVA_PATH`, `MAVEN_HOME`, and `MAVEN_PATH` must be defined without any variables.
 
 

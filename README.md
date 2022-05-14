@@ -41,7 +41,6 @@ EPICS_PVA_NAME_SERVERS =
 EPICS_CA_ADDR_LIST = localhost
 EPICS_CA_AUTO_ADDR_LIST = YES
 EPICS_CA_MAX_ARRAY_BYTES = 16384
-make sql.show
 ```
 
 ## Build, install, and Service

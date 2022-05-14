@@ -16,7 +16,7 @@ git make sudo which
 
 ## JAVA and MAVEN
 
-Please check several rules in `configure/RULES_REQ' for preparation of your own JAVA and MAVEN environment.
+Please check several rules in `configure/RULES_REQ` for preparation of your own JAVA and MAVEN environment.
 Note that `JAVA_HOME`,`JAVA_PATH`, `MAVEN_HOME`, and `MAVEN_PATH` must be defined without any variables.
 
 
@@ -45,22 +45,25 @@ EPICS_CA_MAX_ARRAY_BYTES = 16384
 
 ## Build, install, and Service
 
+* 
 ```
 make init
 make build
 make install
 make exist
+make exist LEVEL=3
 ```
 
 ```
 /opt/pvwebsocket/pvws.bash startup
 /opt/pvwebsocket/pvws.bash shutdown
+/opt/pvwebsocket/pvws.bash status
 /opt/pvwebsocket/pvws.bash info
 ```
 
-```
-https://localhost:15577/pvws/
-```
+
+* https://localhost:15577/pvws/
+
 
 ## SystemD (WIP)
 

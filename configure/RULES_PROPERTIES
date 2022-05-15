@@ -66,7 +66,6 @@ conf.mainscript: $(APPNAME_MAIN_SCRIPT).in
 	            -e "s|@APPNAME@|$(APPNAME)|g" \
 				-e "s|@APPNAME_SERVICES@|$(APPNAME_SERVICES)|g" \
 				-e "s|@APPNAME_PVWS_PORT@|$(APPNAME_PVWS_PORT)|g" \
-				-e "s|@ARCHAPPL_LONG_TERM_FOLDER@|$(ARCHAPPL_LONG_TERM_FOLDER)|g" \
                < $< > $(basename $<)
 	
 conf.mainscript.show: $(APPNAME_MAIN_SCRIPT).in

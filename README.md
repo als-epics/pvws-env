@@ -102,7 +102,7 @@ $ systemctl status  pvws
 ```
 
 ##
-* https://localhost:15577/pvws/
+* http://localhost:15577/pvws/
 
 ## Scripts
 

@@ -96,7 +96,8 @@ conf.pvws.show: $(APPNAME_CONF).in
 conf.log4j: log4j.properties.in
 	$(QUIET) echo ">>> Generate $(basename $<) from $<"
 	$(QUIET)sed -e "s:@APPNAME_ROOT_LOGGER_LEVEL@:$(APPNAME_ROOT_LOGGER_LEVEL):g" \
-			< $< > $(basename $<)
+	            -e "s|@APPNAME@|$(APPNAME)|g" \
+			    < $< > $(basename $<)
 
 conf.log4j.show: log4j.properties.in 
 	$(QUIET) echo ">>> $(basename $<)"

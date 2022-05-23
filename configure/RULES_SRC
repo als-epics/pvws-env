@@ -34,6 +34,7 @@ init: clone update
 clone:
 	$(call gitclone,$(SRC_GITURL),$(SRC_PATH),$(SRC_TAG))
 
+## Update Source
 update:
 	$(QUIET)cd $(SRC_PATH) && git submodule update --init ./
 
@@ -76,6 +77,7 @@ mkdir.wars:
 
 .PHONY: conf build clean conf.show
 
+## Build Java source with maven
 build: conf build.mvn
 
 conf: conf.properties

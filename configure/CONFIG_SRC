@@ -12,10 +12,10 @@ INSTALL_755:=$(INSTALL) -m 755
 # test -w $(INSTALL_LOCATION) is wrong, if the directory doesn't exsit.
 # So, test -w $(INSTALL_LOCATION)/.. is a bit better solution.
 # There is only one exception when INSTALL_LOCATION = HOME.
-ifeq "$(INSTALL_LOCATION)" "${HOME}"
-SUDO_INFO := $(shell test -w $(INSTALL_LOCATION) 1>&2 2> /dev/null; echo $$?)
+ifeq "$(WS_INSTALL_LOCATION)" "${HOME}"
+SUDO_INFO := $(shell test -w $(WS_INSTALL_LOCATION) 1>&2 2> /dev/null; echo $$?)
 else
-SUDO_INFO := $(shell test -w $(INSTALL_LOCATION)/.. 1>&2 2> /dev/null; echo $$?)
+SUDO_INFO := $(shell test -w $(WS_INSTALL_LOCATION)/.. 1>&2 2> /dev/null; echo $$?)
 endif
 
 SUDO_CMD := $(shell which sudo)
@@ -45,7 +45,6 @@ endif
 
 
 #
-SITE_TEMPLATE_PATH:=$(TOP)/site-template
 #
 #
 PATH:=$(MAVEN_PATH):$(JAVA_PATH):${PATH}
@@ -61,7 +60,7 @@ APPNAME_SITEID_TARGET_PATH:=$(TOP)/$(SRC_PATH)/src/sitespecific/$(APPNAME_SITEID
 
 # Service order is matter, don't change them
 APPNAME_SERVICES:=pvws
-INSTALL_LOCATION_SERVICES:=$(addprefix $(INSTALL_LOCATION)/, $(APPNAME_SERVICES))
+INSTALL_LOCATION_SERVICES:=$(addprefix $(WS_INSTALL_LOCATION)/, $(APPNAME_SERVICES))
 #APPNAME_UPPERCASE_SERVICES:=$(shell  echo "$(ARCHAPPL_SERVICES)" | tr '[:lower:]' '[:upper:]')
 #
 

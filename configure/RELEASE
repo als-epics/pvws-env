@@ -8,11 +8,11 @@ SRC_NAME:=${APPNAME}
 
 
 # Which the source tag / branch / hash id would like to use
-# 2020-04-21
-SRC_TAG:=tags/R2
+#2022-09-23
+SRC_TAG:=tags/R3
 
 # Placeholder for the site-specific version control 
-SRC_VERSION:=2.0.0
+SRC_VERSION:=333.0
 
 
 -include $(TOP)/../RELEASE.local

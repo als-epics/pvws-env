@@ -61,7 +61,7 @@ conf.properties.show: $(show_properties_RULES)
 
 conf.mainscript: $(APPNAME_MAIN_SCRIPT).in
 	$(QUIET) echo ">>> Generate output, $(basename $<) from $<"
-	$(QUIET)sed -e "s:@INSTALL_LOCATION@:$(INSTALL_LOCATION):g" \
+	$(QUIET)sed -e "s:@INSTALL_LOCATION@:$(WS_INSTALL_LOCATION):g" \
 			    -e "s|@APPFULLNAME@|"$(APPFULLNAME)"|g" \
 	            -e "s|@APPNAME@|$(APPNAME)|g" \
 				-e "s|@APPNAME_SERVICES@|$(APPNAME_SERVICES)|g" \
@@ -73,7 +73,7 @@ conf.mainscript.show: $(APPNAME_MAIN_SCRIPT).in
 
 conf.pvws: $(APPNAME_CONF).in 
 	$(QUIET) echo ">>> Generate $(basename $<) from $<"
-	$(QUIET)sed -e "s:@INSTALL_LOCATION@:$(INSTALL_LOCATION):g" \
+	$(QUIET)sed -e "s:@INSTALL_LOCATION@:$(WS_INSTALL_LOCATION):g" \
 			 -e "s|@APPFULLNAME@|"$(APPFULLNAME)"|g" \
 			 -e "s:@JAVA_HOME@:$(JAVA_HOME):g" -e "s|@JAVA_OPTS@|$(JAVA_OPTS)|g" \
 			 -e "s|@EPICS_CA_ADDR_LIST@|$(EPICS_CA_ADDR_LIST)|g" \

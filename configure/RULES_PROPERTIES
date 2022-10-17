@@ -75,7 +75,7 @@ conf.pvws: $(APPNAME_CONF).in
 	$(QUIET) echo ">>> Generate $(basename $<) from $<"
 	$(QUIET)sed -e "s:@INSTALL_LOCATION@:$(WS_INSTALL_LOCATION):g" \
 			 -e "s|@APPFULLNAME@|"$(APPFULLNAME)"|g" \
-			 -e "s:@JAVA_HOME@:$(JAVA_HOME):g" -e "s|@JAVA_OPTS@|$(JAVA_OPTS)|g" \
+			 -e "s:@JAVA_HOME@:$(JAVA_HOME):g" -e "s|@JAVA_OPTS@|$(WS_JAVA_OPTS)|g" \
 			 -e "s|@EPICS_CA_ADDR_LIST@|$(EPICS_CA_ADDR_LIST)|g" \
 			 -e "s:@EPICS_CA_AUTO_ADDR_LIST@:$(EPICS_CA_AUTO_ADDR_LIST):g" \
 			 -e "s:@EPICS_CA_MAX_ARRAY_BYTES@:$(EPICS_CA_MAX_ARRAY_BYTES):g" \

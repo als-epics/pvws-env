@@ -17,7 +17,7 @@ endif
 
 ifeq ($(UNAME_S),Linux)
 sd_install: conf.systemd install.systemd
-	$(QUIET)sudo systemctl daemon-reload
+	$(QUIET)$(SUDO) systemctl daemon-reload
 endif
 
 .PHONY: conf.systemd conf.systemd.show
@@ -54,14 +54,14 @@ conf.systemd0.show: $(SYSTEMD_FILENAME).in
 	@cat -b $(basename $<)
 
 install.override: $(SYSTEMD_OVERRIDE_FILENAME).in
-	$(QUIET)sudo $(INSTALL) -d  $(SYSTEMD_PATH)/tomcat9.service.d/
-	$(QUIET)sudo $(INSTALL_DATA) -b $(basename $<) $(SYSTEMD_PATH)/tomcat9.service.d/
+	$(QUIET)$(SUDO) $(INSTALL) -d  $(SYSTEMD_PATH)/tomcat9.service.d/
+	$(QUIET)$(SUDO) $(INSTALL_DATA) -b $(basename $<) $(SYSTEMD_PATH)/tomcat9.service.d/
 
 install.override.show: 
 	$(QUIET)cat -b $(SYSTEMD_PATH)/tomcat9.service.d/$(SYSTEMD_OVERRIDE_FILENAME)
 
 install.systemd0: $(SYSTEMD_FILENAME).in
-	$(QUIET)sudo $(INSTALL_DATA) -b $(basename $<) $(SYSTEMD_PATH)/
+	$(QUIET)$(SUDO) $(INSTALL_DATA) -b $(basename $<) $(SYSTEMD_PATH)/
 
 install.systemd0.show:
 	$(QUIET)cat -b $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME)
@@ -74,27 +74,27 @@ sd_status:
 
 #
 sd_start:
-	$(QUIET)sudo systemctl start $(SYSTEMD_FILENAME)
+	$(QUIET)$(SUDO) systemctl start $(SYSTEMD_FILENAME)
 #
 # We ignore its error
 sd_stop:
-	-$(QUIET)sudo systemctl stop $(SYSTEMD_FILENAME)
+	-$(QUIET)$(SUDO) systemctl stop $(SYSTEMD_FILENAME)
 #
 #
 sd_restart:
-	$(QUIET)sudo systemctl restart $(SYSTEMD_FILENAME)
+	$(QUIET)$(SUDO) systemctl restart $(SYSTEMD_FILENAME)
 #
 # We ignore its error
 sd_clean:
-	$(if $(wildcard $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME)), $(QUIET)sudo rm -f $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME))
+	$(if $(wildcard $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME)), $(QUIET)$(SUDO) rm -f $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME))
 #
 #
 sd_enable:
-	$(if $(wildcard $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME)), sudo systemctl enable $(SYSTEMD_FILENAME))
+	$(if $(wildcard $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME)), $(SUDO) systemctl enable $(SYSTEMD_FILENAME))
 #
 #
 sd_disable:
-	$(if $(wildcard $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME)), sudo systemctl disable $(SYSTEMD_FILENAME))
+	$(if $(wildcard $(SYSTEMD_PATH)/$(SYSTEMD_FILENAME)), $(SUDO) systemctl disable $(SYSTEMD_FILENAME))
 #
 endif
 #
@@ -113,19 +113,19 @@ conf.launch.show: $(LAUNCH_PLIST_FILENAME).in
 
 ifeq ($(UNAME_S),Darwin)
 install.launch: $(LAUNCH_PLIST_FILENAME).in
-	$(QUIET)sudo $(INSTALL_DATA) -b $(basename $<) $(LAUNCH_PATH)/
+	$(QUIET)$(SUDO) $(INSTALL_DATA) -b $(basename $<) $(LAUNCH_PATH)/
 
 install.launch.show:
 	$(QUIET)cat -b $(LAUNCH_PATH)/$(LAUNCH_PLIST_FILENAME)
 #
 launchctl_load:
-	$(QUIET) sudo launchctl bootstrap user/$(WS_USERID) $(LAUNCH_PATH)/$(LAUNCH_PLIST_FILENAME) | cat -b
+	$(QUIET) $(SUDO) launchctl bootstrap user/$(WS_USERID) $(LAUNCH_PATH)/$(LAUNCH_PLIST_FILENAME) | cat -b
 #
 launchctl_unload:
-	$(QUIET) sudo launchctl bootout user/$(WS_USERID) $(LAUNCH_PATH)/$(LAUNCH_PLIST_FILENAME) | cat -b
+	$(QUIET) $(SUDO) launchctl bootout user/$(WS_USERID) $(LAUNCH_PATH)/$(LAUNCH_PLIST_FILENAME) | cat -b
 #
 launchctl_print:
-	$(QUIET) sudo launchctl print system/org.epics.archappl
+	$(QUIET) $(SUDO) launchctl print system/org.epics.archappl
 
 start:
 	$(QUIET) $(WS_INSTALL_LOCATION)/$(APPNAME_MAIN_SCRIPT) startup

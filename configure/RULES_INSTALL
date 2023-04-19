@@ -18,7 +18,7 @@ services.install: $(SERVICES_INSTALL_RULES) $(conf_install_RULES)
 
 log4j.install: log4j.properties
 	$(QUIET)echo ">>> Install $< into $(TOMCAT_HOME)/lib/"
-	$(QUIET)sudo install $< $(TOMCAT_HOME)/lib/
+	$(QUIET)$(SUDO) install $< $(TOMCAT_HOME)/lib/
 
 confpvws.install: $(APPNAME_CONF)
 	$(QUIET)echo ">>> Install $< into $(WS_INSTALL_LOCATION)/"
@@ -49,7 +49,7 @@ confpvws.show: $(APPNAME_CONF)
 #
 serverxml.install:
 	$(QUIET)echo ">>> Update  $(WS_INSTALL_LOCATION)/*/conf/server.xml to use the proper port numbers "
-	$(QUIET)sudo sed -i.bak -e 's|Connector port="8080"|Connector port="$(APPNAME_PVWS_PORT)"|g' -e 's|Server port="-1" shutdown="SHUTDOWN"|Server port="$(APPNAME_PVWS_SHUTDOWN_PORT)" shutdown="SHUTDOWN"|g' $(WS_INSTALL_LOCATION)/pvws/conf/server.xml
+	$(QUIET)$(SUDO) sed -i.bak -e 's|Connector port="8080"|Connector port="$(APPNAME_PVWS_PORT)"|g' -e 's|Server port="-1" shutdown="SHUTDOWN"|Server port="$(APPNAME_PVWS_SHUTDOWN_PORT)" shutdown="SHUTDOWN"|g' $(WS_INSTALL_LOCATION)/pvws/conf/server.xml
 
 serverxml.show:
 	$(QUIET)cat -b $(WS_INSTALL_LOCATION)/pvws/conf/server.xml
@@ -88,7 +88,7 @@ ifeq ($(UNAME_S),Linux)
 uninstall: sd_stop sd_disable sd_clean
 	$(QUIET)echo "Removing $(WS_INSTALL_LOCATION)..."
 	$(QUIET)$(SUDO) rm -rf $(WS_INSTALL_LOCATION)/
-	$(QUIET)sudo systemctl daemon-reload
+	$(QUIET)$(SUDO) systemctl daemon-reload
 # Debian Tomcat Service is already in the system
 # This rule for CentOS 8
 src_preinst:

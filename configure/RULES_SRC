@@ -65,11 +65,11 @@ info.mvn:
 ## Build Source
 
 clean.mvn: info.mvn
-	$(QUIET) echo "JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(MVN_OPTS) -f $(SRC_PATH) clean -Dmaven.test.skip=true"
-	$(QUIET) JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(MVN_OPTS) -f $(SRC_PATH) clean -Dmaven.test.skip=true
+	$(QUIET) echo "JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(WS_MVN_OPTS) -f $(SRC_PATH) clean -Dmaven.test.skip=true"
+	$(QUIET) JAVA_HOME=$(WS_JAVA_HOME) $(MAVEN_CMD) $(WS_MVN_OPTS) -f $(SRC_PATH) clean -Dmaven.test.skip=true
 
 build.mvn: info.mvn | mkdir.wars
-	$(QUIET) JAVA_HOME=$(JAVA_HOME) $(MAVEN_CMD) $(MVN_OPTS) -f $(SRC_PATH) clean package -DwebappDirectory=$(WARS_TARGET) -Dmaven.test.skip=true
+	$(QUIET) JAVA_HOME=$(WS_JAVA_HOME) $(MAVEN_CMD) $(WS_MVN_OPTS) -f $(SRC_PATH) clean package -DwebappDirectory=$(WARS_TARGET) -Dmaven.test.skip=true
 
 
 mkdir.wars:
